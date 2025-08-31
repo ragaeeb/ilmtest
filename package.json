@@ -1,0 +1,39 @@
+{
+    "name": "al-ajjal",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev --turbopack",
+        "build": "next build --turbopack",
+        "start": "next start",
+        "lint": "biome check",
+        "format": "biome format --write"
+    },
+    "engines": {
+        "bun": ">=1.2.21",
+        "node": ">=22.x"
+    },
+    "dependencies": {
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "lucide-react": "^0.542.0",
+        "next": "15.5.2",
+        "react": "19.1.1",
+        "react-dom": "19.1.1",
+        "tailwind-merge": "^3.3.1"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "2.2.2",
+        "@semantic-release/changelog": "^6.0.3",
+        "@semantic-release/git": "^10.0.1",
+        "@tailwindcss/postcss": "^4.1.12",
+        "@types/bun": "^1.2.21",
+        "@types/node": "^24.3.0",
+        "@types/react": "^19.1.12",
+        "@types/react-dom": "^19.1.9",
+        "semantic-release": "^24.2.7",
+        "tailwindcss": "^4.1.12",
+        "tw-animate-css": "^1.3.7",
+        "typescript": "^5.9.2"
+    }
+}
