@@ -28,17 +28,11 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en">
                 <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                    <header className="flex h-16 items-center justify-end gap-4 p-4">
-                        <SignedOut>
-                            <SignInButton />
-                        </SignedOut>
-                        <SignedIn>
-                            <Link href="/search" className="text-sky-600 hover:underline">
-                                Search
-                            </Link>
+                    <SignedIn>
+                        <header className="flex h-16 items-center justify-end gap-4 p-4">
                             <UserButton />
-                        </SignedIn>
-                    </header>
+                        </header>
+                    </SignedIn>
                     {children}
                 </body>
             </html>
