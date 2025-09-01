@@ -1,12 +1,12 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 [![wakatime](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/3f7d2c9e-5a3d-48e0-bf5c-a2968b4f24d1.svg)](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/3f7d2c9e-5a3d-48e0-bf5c-a2968b4f24d1)
-[![Vercel Deploy](https://deploy-badge.vercel.app/vercel/al-ajjal)](https://al-ajjal.vercel.app)
-[![codecov](https://codecov.io/gh/ragaeeb/al-ajjal/graph/badge.svg?token=ZD0WHFWUF5)](https://codecov.io/gh/ragaeeb/al-ajjal)
+[![Vercel Deploy](https://deploy-badge.vercel.app/vercel/ilmtest)](https://ilmtest.vercel.app)
+[![codecov](https://codecov.io/gh/ragaeeb/ilmtest/graph/badge.svg?token=ZD0WHFWUF5)](https://codecov.io/gh/ragaeeb/ilmtest)
 [![typescript](https://badgen.net/badge/icon/typescript?icon=typescript&label&color=blue)](https://www.typescriptlang.org)
-[![Node.js CI](https://github.com/ragaeeb/al-ajjal/actions/workflows/build.yml/badge.svg)](https://github.com/ragaeeb/al-ajjal/actions/workflows/build.yml)
+[![Node.js CI](https://github.com/ragaeeb/ilmtest/actions/workflows/build.yml/badge.svg)](https://github.com/ragaeeb/ilmtest/actions/workflows/build.yml)
 ![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white)
-![GitHub License](https://img.shields.io/github/license/ragaeeb/al-ajjal)
+![GitHub License](https://img.shields.io/github/license/ragaeeb/ilmtest)
 
 ## Getting Started
 

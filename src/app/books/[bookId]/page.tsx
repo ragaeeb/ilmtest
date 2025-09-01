@@ -1,24 +1,15 @@
-'use client';
-
-import { use } from 'react';
+import { cookies } from 'next/headers';
 import BookChapters from './BookChapters';
 
-const bookTitles = {
-    quran: { ar: 'القرآن الكريم', en: 'The Holy Quran' },
-    'sahih-bukhari': { ar: 'صحيح البخاري', en: 'Sahih al-Bukhari' },
-    'sahih-muslim': { ar: 'صحيح مسلم', en: 'Sahih Muslim' },
-    'sunan-abi-dawud': { ar: 'سنن أبي داود', en: 'Sunan Abi Dawud' },
-    'jami-tirmidhi': { ar: 'جامع الترمذي', en: 'Jami at-Tirmidhi' },
-    'sunan-nasai': { ar: 'سنن النسائي', en: 'Sunan an-Nasai' },
-};
-
-export default function BookPage({ params }: { params: Promise<{ bookId: string }> }) {
-    const { bookId } = use(params);
-    const book = bookTitles[bookId as keyof typeof bookTitles];
-
-    if (!book) {
+export default async function BookPage({ params }: { params: { bookId: string } }) {
+    const { bookId } = params;
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}`, {
+        cache: 'force-cache',
+        headers: { cookie: cookies().toString() },
+    });
+    if (!res.ok) {
         return <div>Book not found</div>;
     }
-
-    return <BookChapters bookId={bookId} bookTitle={book.ar} bookTitleEn={book.en} />;
+    const book = await res.json();
+    return <BookChapters bookId={bookId} bookTitle={book.title} bookTitleEn={book.titleEn} />;
 }
