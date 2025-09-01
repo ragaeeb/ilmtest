@@ -3,6 +3,7 @@
 import { ArrowLeft, BookOpen, Copy, Heart, Share } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { InteractiveText } from '@/components/InteractiveText';
 import { Button } from '@/components/ui/button';
 
 interface ContentReaderProps {
@@ -97,23 +98,53 @@ export default function ContentReader({
 
                             {/* Arabic Text */}
                             <div className="mb-6">
-                                <p className="text-right font-arabic text-2xl text-sky-900 leading-relaxed dark:text-sky-100">
-                                    {item.arabic}
-                                </p>
+                                <InteractiveText
+                                    text={item.arabic}
+                                    terms={{
+                                        'عمر بن الخطاب': {
+                                            title: 'Umar ibn al-Khattab',
+                                            description: 'Second caliph of Islam and close companion of the Prophet',
+                                        },
+                                    }}
+                                    className="text-right font-arabic text-2xl text-sky-900 leading-relaxed dark:text-sky-100"
+                                />
                             </div>
 
                             {/* Transliteration (Quran only) */}
                             {isQuran && showTransliteration && (
                                 <div className="mb-4 rounded-lg bg-sky-50 p-4 dark:bg-sky-900/30">
-                                    <p className="text-sky-700 italic dark:text-sky-300">{item.transliteration}</p>
+                                    <InteractiveText
+                                        text={item.transliteration}
+                                        terms={{
+                                            mustaqeem: {
+                                                title: 'Mustaqeem',
+                                                description: 'The straight and upright path',
+                                            },
+                                        }}
+                                        className="text-sky-700 italic dark:text-sky-300"
+                                    />
                                 </div>
                             )}
 
                             {/* Translation */}
                             <div className="mb-4">
-                                <p className="text-lg text-sky-800 leading-relaxed dark:text-sky-200">
-                                    {item.translation}
-                                </p>
+                                <InteractiveText
+                                    text={item.translation}
+                                    terms={{
+                                        'Umar ibn al-Khattab': {
+                                            title: 'Umar ibn al-Khattab',
+                                            description: 'Second caliph of Islam and close companion of the Prophet',
+                                        },
+                                    }}
+                                    className="text-lg text-sky-800 leading-relaxed dark:text-sky-200"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <Button asChild variant="outline" className="h-7 px-3 text-xs">
+                                    <Link href={`/books/${bookId}/${chapterId}/${item.id}/explanations`}>
+                                        Explanation
+                                    </Link>
+                                </Button>
                             </div>
 
                             {/* Hadith specific info */}

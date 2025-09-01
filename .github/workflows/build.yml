@@ -102,7 +102,7 @@ jobs:
                   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
 
             - name: Run tests
-              run: bun run test
+              run: bun test
 
             - name: Upload results to Codecov
               uses: codecov/codecov-action@v5

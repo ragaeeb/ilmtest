@@ -40,6 +40,7 @@ const mockContents: Record<string, Record<string, any[]>> = {
                 arabic: 'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ',
                 translation: 'Guide us to the straight path',
                 transliteration: 'Ihdinaa as-siraat al-mustaqeem',
+                tags: ['guidance'],
             },
             {
                 id: 7,
@@ -59,6 +60,7 @@ const mockContents: Record<string, Record<string, any[]>> = {
                     'Umar ibn al-Khattab (may Allah be pleased with him) reported: While we were sitting with the Messenger of Allah (peace be upon him) one day, a man appeared before us whose clothes were exceedingly white and whose hair was exceedingly black; no signs of journey were to be seen on him and none of us knew him...',
                 narrator: 'Umar ibn al-Khattab',
                 grade: 'Sahih (Authentic)',
+                tags: ['faith'],
             },
             {
                 id: 2,
@@ -67,6 +69,7 @@ const mockContents: Record<string, Record<string, any[]>> = {
                     'Abu Huraira reported that the Messenger of Allah (peace be upon him) said: "Faith has over seventy branches, the most excellent of which is the declaration that there is no god but Allah, and the humblest of which is the removal of what is injurious from the path, and modesty is a branch of faith."',
                 narrator: 'Abu Huraira',
                 grade: 'Sahih (Authentic)',
+                tags: ['faith'],
             },
         ],
     },
