@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import Link from 'next/link';
 
 async function BooksGrid() {
-    const cookieHeader = cookies().toString();
+    const cookieHeader = (await cookies()).toString();
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books`, {
         cache: 'force-cache',
         headers: { cookie: cookieHeader },

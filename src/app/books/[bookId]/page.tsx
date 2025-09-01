@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers';
 import BookChapters from './BookChapters';
 
-export default async function BookPage({ params }: { params: { bookId: string } }) {
-    const { bookId } = params;
+export default async function BookPage({ params }: { params: Promise<{ bookId: string }> }) {
+    const { bookId } = await params;
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}`, {
         cache: 'force-cache',
         headers: { cookie: cookies().toString() },
