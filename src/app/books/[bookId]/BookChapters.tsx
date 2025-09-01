@@ -2,36 +2,8 @@
 
 import { ArrowLeft, BookOpen, Hash, Search } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-
-// Sample data for Quran
-const quranSurahs = [
-    { id: 1, nameAr: 'الفاتحة', nameEn: 'Al-Fatiha', meaning: 'The Opening', verses: 7, revelation: 'Meccan' },
-    { id: 2, nameAr: 'البقرة', nameEn: 'Al-Baqarah', meaning: 'The Cow', verses: 286, revelation: 'Medinan' },
-    {
-        id: 3,
-        nameAr: 'آل عمران',
-        nameEn: 'Aal-E-Imran',
-        meaning: 'The Family of Imran',
-        verses: 200,
-        revelation: 'Medinan',
-    },
-    { id: 4, nameAr: 'النساء', nameEn: 'An-Nisa', meaning: 'The Women', verses: 176, revelation: 'Medinan' },
-    { id: 5, nameAr: 'المائدة', nameEn: 'Al-Maidah', meaning: 'The Table', verses: 120, revelation: 'Medinan' },
-];
-
-// Sample data for Sahih Bukhari
-const bukhariBooks = [
-    { id: 1, nameAr: 'كتاب بدء الوحي', nameEn: 'Book of Revelation', hadithCount: 7 },
-    { id: 2, nameAr: 'كتاب الإيمان', nameEn: 'Book of Faith', hadithCount: 53 },
-    { id: 3, nameAr: 'كتاب العلم', nameEn: 'Book of Knowledge', hadithCount: 76 },
-    { id: 4, nameAr: 'كتاب الوضوء', nameEn: 'Book of Ablutions', hadithCount: 113 },
-    { id: 5, nameAr: 'كتاب الغسل', nameEn: 'Book of Bathing', hadithCount: 31 },
-    { id: 6, nameAr: 'كتاب الحيض', nameEn: 'Book of Menstruation', hadithCount: 33 },
-    { id: 7, nameAr: 'كتاب التيمم', nameEn: 'Book of Dry Ablution', hadithCount: 28 },
-    { id: 8, nameAr: 'كتاب الصلاة', nameEn: 'Book of Prayer', hadithCount: 172 },
-];
 
 interface BookChaptersProps {
     bookId: string;
@@ -45,9 +17,16 @@ export default function BookChapters({
     bookTitleEn = 'The Holy Quran',
 }: BookChaptersProps) {
     const [searchTerm, setSearchTerm] = useState('');
+    const [chapters, setChapters] = useState<any[]>([]);
+
+    useEffect(() => {
+        fetch(`/api/books/${bookId}/chapters`)
+            .then((res) => res.json())
+            .then(setChapters)
+            .catch(() => setChapters([]));
+    }, [bookId]);
 
     const isQuran = bookId === 'quran';
-    const chapters = isQuran ? quranSurahs : bukhariBooks;
 
     const filteredChapters = chapters.filter(
         (chapter) =>

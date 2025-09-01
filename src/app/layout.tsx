@@ -1,6 +1,7 @@
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import Link from 'next/link';
 import './globals.css';
 
 const geistSans = Geist({
@@ -32,6 +33,9 @@ export default function RootLayout({
                             <SignInButton />
                         </SignedOut>
                         <SignedIn>
+                            <Link href="/search" className="text-sky-600 hover:underline">
+                                Search
+                            </Link>
                             <UserButton />
                         </SignedIn>
                     </header>
