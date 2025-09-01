@@ -1,20 +1,18 @@
-import { cookies } from 'next/headers';
 import { ContentCard } from '@/components/ContentCard';
+import { fetchWithCookies } from '@/lib/fetchWithCookies';
 
 export default async function TagPage({ params }: { params: { tag: string } }) {
     const { tag } = params;
-    const cookieHeader = (await cookies()).toString();
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/tags/${tag}`, {
+    const res = await fetchWithCookies(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/tags/${tag}`, {
         cache: 'force-cache',
-        headers: { cookie: cookieHeader },
     });
     const refs = res.ok ? await res.json() : [];
     const items = (
         await Promise.all(
             refs.map(async (r: any) => {
-                const c = await fetch(
+                const c = await fetchWithCookies(
                     `${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${r.bookId}/chapters/${r.chapterId}/contents/${r.contentId}`,
-                    { cache: 'force-cache', headers: { cookie: cookieHeader } },
+                    { cache: 'force-cache' },
                 );
                 if (!c.ok) return null;
                 const data = await c.json();
