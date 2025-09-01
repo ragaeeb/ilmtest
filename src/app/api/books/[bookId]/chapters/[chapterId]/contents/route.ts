@@ -75,7 +75,7 @@ const mockContents: Record<string, Record<string, any[]>> = {
 export const revalidate = 3600;
 
 export async function GET(_req: Request, { params }: { params: { bookId: string; chapterId: string } }) {
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
         return new NextResponse('Unauthorized', { status: 401 });
     }

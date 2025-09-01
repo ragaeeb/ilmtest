@@ -79,7 +79,7 @@ export async function GET(
     _req: Request,
     { params }: { params: { bookId: string; chapterId: string; contentId: string } },
 ) {
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
         return new NextResponse('Unauthorized', { status: 401 });
     }

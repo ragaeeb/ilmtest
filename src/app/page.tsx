@@ -6,6 +6,9 @@ async function BooksGrid() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books`, {
         cache: 'force-cache',
     });
+    if (!res.ok) {
+        throw new Error('Failed to fetch books');
+    }
     const books = await res.json();
     return (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">

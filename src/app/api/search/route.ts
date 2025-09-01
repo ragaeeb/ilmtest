@@ -33,7 +33,7 @@ const mockResults: SearchResult[] = [
 export const revalidate = 3600;
 
 export async function GET(req: Request) {
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
         return new NextResponse('Unauthorized', { status: 401 });
     }
