@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button';
 export default async function ContentPage({
     params,
 }: {
-    params: { bookId: string; chapterId: string; contentId: string };
+    params: Promise<{ bookId: string; chapterId: string; contentId: string }>;
 }) {
-    const { bookId, chapterId, contentId } = params;
+    const { bookId, chapterId, contentId } = await params;
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}/chapters/${chapterId}/contents/${contentId}`,
         {
