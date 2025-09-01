@@ -27,7 +27,10 @@ export default function ChapterPage({ params }: { params: Promise<{ bookId: stri
     console.log('params', params);
     const { bookId, chapterId } = use(params);
     const book = bookTitles[bookId as keyof typeof bookTitles];
-    const chapter = chapterTitles[bookId as keyof typeof chapterTitles]?.[chapterId];
+    const chapter =
+        chapterTitles[bookId as keyof typeof chapterTitles]?.[
+            chapterId as keyof (typeof chapterTitles)[keyof typeof chapterTitles]
+        ];
 
     if (!book || !chapter) {
         return <div>Chapter not found</div>;
