@@ -8,7 +8,8 @@ const mockBooks = {
         titleEn: 'The Holy Quran',
         description: 'The final revelation from Allah',
         chapters: 114,
-        icon: '\uD83D\uDCD6',
+        avatar: 'https://dev.shamela.ws/covers/1.jpg',
+        url: 'https://shamela.ws/book/21795/{{id}}',
     },
     'sahih-bukhari': {
         id: 'sahih-bukhari',
@@ -16,7 +17,9 @@ const mockBooks = {
         titleEn: 'Sahih al-Bukhari',
         description: 'The most authentic collection of hadith',
         chapters: 97,
-        icon: '\uD83D\uDCDA',
+        avatar: 'https://dev.shamela.ws/covers/335.jpg',
+        url: 'https://shamela.ws/book/112233/{{id}}',
+        author: { name: 'Muhammad b. Ismail', born: 194, died: 256 },
     },
     'sahih-muslim': {
         id: 'sahih-muslim',
@@ -24,7 +27,9 @@ const mockBooks = {
         titleEn: 'Sahih Muslim',
         description: 'The second most authentic hadith collection',
         chapters: 56,
-        icon: '\uD83D\uDCCB',
+        avatar: 'https://dev.shamela.ws/covers/3.jpg',
+        url: 'https://shamela.ws/book/445566/{{id}}',
+        author: { name: 'Muslim b. al-Hajjaj', born: 206, died: 261 },
     },
     'sunan-abi-dawud': {
         id: 'sunan-abi-dawud',
@@ -32,7 +37,8 @@ const mockBooks = {
         titleEn: 'Sunan Abi Dawud',
         description: 'Collection focusing on legal hadith',
         chapters: 43,
-        icon: '\uD83D\uDCDC',
+        avatar: 'https://dev.shamela.ws/covers/1727.jpg',
+        url: 'https://shamela.ws/book/778899/{{id}}',
     },
     'jami-tirmidhi': {
         id: 'jami-tirmidhi',
@@ -40,7 +46,8 @@ const mockBooks = {
         titleEn: 'Jami at-Tirmidhi',
         description: 'Comprehensive hadith collection with commentary',
         chapters: 46,
-        icon: '\uD83D\uDCD1',
+        avatar: 'https://dev.shamela.ws/covers/1681.jpg',
+        url: 'https://shamela.ws/book/998877/{{id}}',
     },
     'sunan-nasai': {
         id: 'sunan-nasai',
@@ -48,7 +55,8 @@ const mockBooks = {
         titleEn: 'Sunan an-Nasai',
         description: 'Focused collection of authentic hadith',
         chapters: 51,
-        icon: '\uD83D\uDCC4',
+        avatar: 'https://dev.shamela.ws/covers/336.jpg',
+        url: 'https://shamela.ws/book/665544/{{id}}',
     },
 };
 

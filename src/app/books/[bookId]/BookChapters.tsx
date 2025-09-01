@@ -4,20 +4,24 @@ import { ArrowLeft, BookOpen, Hash, Search } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 interface BookChaptersProps {
     bookId: string;
     bookTitle: string;
     bookTitleEn: string;
+    author?: { name: string; born: number; died: number };
 }
 
 export default function BookChapters({
     bookId = 'quran',
     bookTitle = 'القرآن الكريم',
     bookTitleEn = 'The Holy Quran',
+    author,
 }: BookChaptersProps) {
     const [searchTerm, setSearchTerm] = useState('');
     const [chapters, setChapters] = useState<any[]>([]);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         fetch(`/api/books/${bookId}/chapters`)
@@ -46,7 +50,7 @@ export default function BookChapters({
                         >
                             <Link href="/">
                                 <ArrowLeft className="h-5 w-5" />
-                                <span>Back to Library</span>
+                                <span>Back to Home</span>
                             </Link>
                         </Button>
                     </div>
@@ -54,9 +58,27 @@ export default function BookChapters({
                     <div className="text-center">
                         <h1 className="mb-2 font-bold text-4xl text-sky-800 dark:text-sky-200">{bookTitle}</h1>
                         <h2 className="mb-4 font-semibold text-2xl text-sky-600 dark:text-sky-400">{bookTitleEn}</h2>
-                        <p className="text-sky-600 dark:text-sky-400">
-                            Select a {isQuran ? 'Surah' : 'Book'} to begin reading
-                        </p>
+                        {author && (
+                            <div className="mb-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setOpen(true)}
+                                    className="cursor-pointer text-sky-600 underline decoration-dotted dark:text-sky-400"
+                                >
+                                    {author.name}
+                                </button>
+                                <Dialog open={open} onOpenChange={setOpen}>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>{author.name}</DialogTitle>
+                                        </DialogHeader>
+                                        <p>Born: {author.born} AH</p>
+                                        <p>Died: {author.died} AH</p>
+                                    </DialogContent>
+                                </Dialog>
+                            </div>
+                        )}
+                        <p className="text-sky-600 dark:text-sky-400">Select a {isQuran ? 'Surah' : 'Book'} to begin reading</p>
                     </div>
                 </div>
 

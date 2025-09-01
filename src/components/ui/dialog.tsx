@@ -30,7 +30,7 @@ export function Dialog({
     return (
         <dialog
             ref={ref}
-            className="rounded-lg border border-sky-200 bg-white p-6 shadow-lg backdrop:bg-black/50 dark:border-sky-800 dark:bg-gray-900"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg border border-sky-200 bg-white p-6 shadow-lg backdrop:bg-black/50 dark:border-sky-800 dark:bg-gray-900"
             onClose={() => onOpenChange(false)}
         >
             {children}
