@@ -1,18 +1,10 @@
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { ClerkProvider, SignedIn, UserButton } from '@clerk/nextjs';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import Link from 'next/link';
+import { Toaster } from '@/lib/sonner';
+import pkg from '../../package.json';
 import './globals.css';
 
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
     title: 'IlmTest',
@@ -24,16 +16,25 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const version = pkg.version;
+    const homepage = pkg.homepage;
+    const versionUrl = `${homepage}/releases/tag/v${version}`;
     return (
         <ClerkProvider>
             <html lang="en">
-                <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+                <body className="antialiased">
                     <SignedIn>
-                        <header className="flex h-16 items-center justify-end gap-4 p-4">
+                        <div className="fixed top-4 right-4 z-50">
                             <UserButton />
-                        </header>
+                        </div>
                     </SignedIn>
                     {children}
+                    <footer className="mt-8 text-center text-sm text-sky-500">
+                        <Link href={versionUrl} className="underline" target="_blank">
+                            v{version}
+                        </Link>
+                    </footer>
+                    <Toaster />
                 </body>
             </html>
         </ClerkProvider>

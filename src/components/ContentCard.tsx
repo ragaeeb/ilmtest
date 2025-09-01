@@ -2,6 +2,8 @@
 
 import { Copy, Heart, Share } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
+import { toast } from '@/lib/sonner';
 import { InteractiveText } from '@/components/InteractiveText';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -29,6 +31,25 @@ export function ContentCard({
 }) {
     const isQuran = bookId === 'quran';
     const copy = () => navigator.clipboard.writeText(item.arabic);
+    const [editing, setEditing] = useState(false);
+    const [arabicText, setArabicText] = useState(item.arabic);
+    const [translationText, setTranslationText] = useState(item.translation);
+
+    const submitTypo = async () => {
+        await fetch('/api/typo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                bookId,
+                chapterId,
+                contentId: item.id,
+                arabic: arabicText,
+                translation: translationText,
+            }),
+        });
+        toast('Typo submitted');
+        setEditing(false);
+    };
     return (
         <div className="rounded-xl border border-sky-200 bg-white/80 p-8 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl dark:border-sky-800 dark:bg-gray-900/80">
             <div className="mb-6 flex items-center justify-between">
@@ -47,16 +68,19 @@ export function ContentCard({
             </div>
 
             <div className="mb-6">
-                <InteractiveText
-                    text={item.arabic}
-                    terms={{
-                        'عمر بن الخطاب': {
-                            title: 'Umar ibn al-Khattab',
-                            description: 'Second caliph of Islam and close companion of the Prophet',
-                        },
-                    }}
-                    className="text-right font-arabic text-2xl text-sky-900 leading-relaxed dark:text-sky-100"
-                />
+                {editing ? (
+                    <textarea
+                        className="w-full rounded border p-2"
+                        value={arabicText}
+                        onChange={(e) => setArabicText(e.target.value)}
+                    />
+                ) : (
+                    <InteractiveText
+                        text={item.arabic}
+                        terms={{}}
+                        className="text-right font-arabic text-2xl text-sky-900 leading-relaxed dark:text-sky-100"
+                    />
+                )}
             </div>
 
             {showTransliteration && item.transliteration && (
@@ -75,16 +99,19 @@ export function ContentCard({
             )}
 
             <div className="mb-4">
-                <InteractiveText
-                    text={item.translation}
-                    terms={{
-                        'Umar ibn al-Khattab': {
-                            title: 'Umar ibn al-Khattab',
-                            description: 'Second caliph of Islam and close companion of the Prophet',
-                        },
-                    }}
-                    className="text-lg text-sky-800 leading-relaxed dark:text-sky-200"
-                />
+                {editing ? (
+                    <textarea
+                        className="w-full rounded border p-2"
+                        value={translationText}
+                        onChange={(e) => setTranslationText(e.target.value)}
+                    />
+                ) : (
+                    <InteractiveText
+                        text={item.translation}
+                        terms={{}}
+                        className="text-lg text-sky-800 leading-relaxed dark:text-sky-200"
+                    />
+                )}
             </div>
             <div className="mb-4">
                 <Button asChild variant="outline" className="h-7 px-3 text-xs">
@@ -116,27 +143,40 @@ export function ContentCard({
                 </div>
             ) : null}
 
-            <div className="mt-4 flex gap-2">
-                <Button
-                    variant="ghost"
-                    onClick={copy}
-                    className="rounded-lg p-2 text-sky-500 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:hover:bg-sky-900"
-                >
-                    <Copy className="h-4 w-4" />
-                </Button>
-                <Button
-                    variant="ghost"
-                    className="rounded-lg p-2 text-sky-500 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:hover:bg-sky-900"
-                >
-                    <Heart className="h-4 w-4" />
-                </Button>
-                <Button
-                    variant="ghost"
-                    className="rounded-lg p-2 text-sky-500 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:hover:bg-sky-900"
-                >
-                    <Share className="h-4 w-4" />
-                </Button>
-            </div>
+            {editing ? (
+                <div className="mt-4">
+                    <Button onClick={submitTypo}>Submit</Button>
+                </div>
+            ) : (
+                <div className="mt-4 flex gap-2">
+                    <Button
+                        variant="ghost"
+                        onClick={copy}
+                        className="cursor-pointer rounded-lg p-2 text-sky-500 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:hover:bg-sky-900"
+                    >
+                        <Copy className="h-4 w-4" />
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        className="cursor-pointer rounded-lg p-2 text-sky-500 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:hover:bg-sky-900"
+                    >
+                        <Heart className="h-4 w-4" />
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        className="cursor-pointer rounded-lg p-2 text-sky-500 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:hover:bg-sky-900"
+                    >
+                        <Share className="h-4 w-4" />
+                    </Button>
+                    <Button
+                        variant="outline"
+                        className="cursor-pointer"
+                        onClick={() => setEditing(true)}
+                    >
+                        Report Typo
+                    </Button>
+                </div>
+            )}
         </div>
     );
 }

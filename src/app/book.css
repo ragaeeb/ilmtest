@@ -1,0 +1,12 @@
+.book {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #38bdf8;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: book-spin 1s linear infinite;
+}
+
+@keyframes book-spin {
+  to { transform: rotate(360deg); }
+}

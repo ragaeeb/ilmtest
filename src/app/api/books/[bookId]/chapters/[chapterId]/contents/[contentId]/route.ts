@@ -11,6 +11,7 @@ const mockContents: Record<string, Record<string, any[]>> = {
                 arabic: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
                 translation: 'In the name of Allah, the Most Gracious, the Most Merciful',
                 transliteration: 'Bismillahi ar-rahmani ar-raheem',
+                translator: 'Sahih International',
             },
             {
                 id: 2,
@@ -61,6 +62,7 @@ const mockContents: Record<string, Record<string, any[]>> = {
                     'Umar ibn al-Khattab (may Allah be pleased with him) reported: While we were sitting with the Messenger of Allah (peace be upon him) one day, a man appeared before us whose clothes were exceedingly white and whose hair was exceedingly black; no signs of journey were to be seen on him and none of us knew him...',
                 narrator: 'Umar ibn al-Khattab',
                 grade: 'Sahih (Authentic)',
+                translator: 'Abdul Hamid Siddiqi',
                 tags: ['faith'],
             },
             {
