@@ -3,7 +3,7 @@ import ContentReader from './ContentReader';
 
 export default async function ChapterPage({ params }: { params: Promise<{ bookId: string; chapterId: string }> }) {
     const { bookId, chapterId } = await params;
-    const cookieHeader = cookies().toString();
+    const cookieHeader = (await cookies()).toString();
     const [bookRes, chapterRes, chaptersRes] = await Promise.all([
         fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}`, {
             cache: 'force-cache',

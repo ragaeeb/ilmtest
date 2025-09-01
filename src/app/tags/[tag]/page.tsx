@@ -3,7 +3,7 @@ import { ContentCard } from '@/components/ContentCard';
 
 export default async function TagPage({ params }: { params: { tag: string } }) {
     const { tag } = params;
-    const cookieHeader = cookies().toString();
+    const cookieHeader = (await cookies()).toString();
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/tags/${tag}`, {
         cache: 'force-cache',
         headers: { cookie: cookieHeader },

@@ -14,7 +14,7 @@ export default async function ContentPage({
         `${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}/chapters/${chapterId}/contents/${contentId}`,
         {
             cache: 'force-cache',
-            headers: { cookie: cookies().toString() },
+            headers: { cookie: (await cookies()).toString() },
         },
     );
     if (!res.ok) {
