@@ -1,18 +1,13 @@
 import ContentReader from './ContentReader';
 import { fetchWithCookies } from '@/lib/fetchWithCookies';
 
-export default async function ChapterPage({ params }: { params: Promise<{ bookId: string; chapterId: string }> }) {
-    const { bookId, chapterId } = await params;
+export default async function QuranChapterPage({ params }: { params: { chapterId: string } }) {
+    const { chapterId } = params;
+    const bookId = 'quran';
     const [bookRes, chapterRes, chaptersRes] = await Promise.all([
-        fetchWithCookies(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}`, {
-            cache: 'force-cache',
-        }),
-        fetchWithCookies(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}/chapters/${chapterId}`, {
-            cache: 'force-cache',
-        }),
-        fetchWithCookies(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}/chapters`, {
-            cache: 'force-cache',
-        }),
+        fetchWithCookies(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}`, { cache: 'force-cache' }),
+        fetchWithCookies(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}/chapters/${chapterId}`, { cache: 'force-cache' }),
+        fetchWithCookies(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}/chapters`, { cache: 'force-cache' }),
     ]);
     if (!bookRes.ok || !chapterRes.ok || !chaptersRes.ok) {
         return <div>Chapter not found</div>;

@@ -31,7 +31,7 @@ export function InteractiveText({ text, terms, className }: InteractiveTextProps
                                 <button
                                     type="button"
                                     key={`${term}-${idx}-${p}`}
-                                    className="text-sky-600 underline decoration-dotted underline-offset-4 dark:text-sky-400"
+                                    className="cursor-pointer text-sky-600 underline decoration-dotted underline-offset-4 dark:text-sky-400"
                                     onClick={() => setOpen(term)}
                                 >
                                     {term}

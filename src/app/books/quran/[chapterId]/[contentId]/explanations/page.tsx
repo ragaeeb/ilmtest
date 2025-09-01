@@ -1,12 +1,9 @@
 import { ContentCard } from '@/components/ContentCard';
 import { fetchWithCookies } from '@/lib/fetchWithCookies';
 
-export default async function ExplanationsPage({
-    params,
-}: {
-    params: { bookId: string; chapterId: string; contentId: string };
-}) {
-    const { bookId, chapterId, contentId } = params;
+export default async function QuranExplanationsPage({ params }: { params: { chapterId: string; contentId: string } }) {
+    const { chapterId, contentId } = params;
+    const bookId = 'quran';
     const res = await fetchWithCookies(
         `${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}/chapters/${chapterId}/contents/${contentId}/explanations`,
         { cache: 'force-cache' },
@@ -31,12 +28,7 @@ export default async function ExplanationsPage({
                 <h1 className="mb-6 font-bold text-2xl text-sky-800 dark:text-sky-200">Explanations</h1>
                 <div className="space-y-6">
                     {items.map((item: any) => (
-                        <ContentCard
-                            key={`${item.bookId}-${item.chapterId}-${item.id}`}
-                            bookId={item.bookId}
-                            chapterId={item.chapterId}
-                            item={item}
-                        />
+                        <ContentCard key={`${item.bookId}-${item.chapterId}-${item.id}`} bookId={item.bookId} chapterId={item.chapterId} item={item} />
                     ))}
                 </div>
             </div>
