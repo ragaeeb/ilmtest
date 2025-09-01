@@ -1,13 +1,17 @@
-import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
+import { SignInButton } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
 import { BookOpen, Heart, Star } from 'lucide-react';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 
 async function BooksGrid() {
+    const cookieHeader = cookies().toString();
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books`, {
         cache: 'force-cache',
+        headers: { cookie: cookieHeader },
     });
     if (!res.ok) {
-        throw new Error('Failed to fetch books');
+        return <div className="text-center text-red-500">Failed to load books</div>;
     }
     const books = await res.json();
     return (
@@ -44,7 +48,8 @@ async function BooksGrid() {
     );
 }
 
-export default function Home() {
+export default async function Home() {
+    const { userId } = await auth();
     return (
         <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100 dark:from-sky-950 dark:via-blue-950 dark:to-indigo-950">
             <div className="container mx-auto px-4 py-12">
@@ -62,7 +67,7 @@ export default function Home() {
                     </p>
                 </div>
 
-                <SignedOut>
+                {!userId ? (
                     <div className="mb-12 rounded-2xl border border-sky-200 bg-white/70 p-12 shadow-xl backdrop-blur-sm dark:border-sky-800 dark:bg-gray-900/70">
                         <div className="text-center">
                             <Heart className="mx-auto mb-6 h-16 w-16 text-sky-600 dark:text-sky-400" />
@@ -82,23 +87,23 @@ export default function Home() {
                             </SignInButton>
                         </div>
                     </div>
-                </SignedOut>
-
-                <SignedIn>
-                    <div className="mb-8 rounded-2xl border border-sky-200 bg-white/70 p-6 shadow-xl backdrop-blur-sm dark:border-sky-800 dark:bg-gray-900/70">
-                        <div className="mb-4 flex items-center gap-3">
-                            <Star className="h-6 w-6 text-amber-500" />
-                            <h3 className="font-semibold text-sky-800 text-xl dark:text-sky-200">
-                                Continue Your Journey
-                            </h3>
+                ) : (
+                    <>
+                        <div className="mb-8 rounded-2xl border border-sky-200 bg-white/70 p-6 shadow-xl backdrop-blur-sm dark:border-sky-800 dark:bg-gray-900/70">
+                            <div className="mb-4 flex items-center gap-3">
+                                <Star className="h-6 w-6 text-amber-500" />
+                                <h3 className="font-semibold text-sky-800 text-xl dark:text-sky-200">
+                                    Continue Your Journey
+                                </h3>
+                            </div>
+                            <p className="text-sky-600 dark:text-sky-400">
+                                Welcome back! Select a book below to continue your Islamic studies.
+                            </p>
                         </div>
-                        <p className="text-sky-600 dark:text-sky-400">
-                            Welcome back! Select a book below to continue your Islamic studies.
-                        </p>
-                    </div>
-                    {/* Books Grid */}
-                    <BooksGrid />
-                </SignedIn>
+                        {/* Books Grid */}
+                        <BooksGrid />
+                    </>
+                )}
 
                 {/* Footer */}
                 <div className="mt-20 border-sky-200 border-t pt-12 text-center dark:border-sky-800">

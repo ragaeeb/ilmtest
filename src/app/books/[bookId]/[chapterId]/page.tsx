@@ -1,11 +1,17 @@
+import { cookies } from 'next/headers';
 import ContentReader from './ContentReader';
 
 export default async function ChapterPage({ params }: { params: { bookId: string; chapterId: string } }) {
     const { bookId, chapterId } = params;
+    const cookieHeader = cookies().toString();
     const [bookRes, chapterRes] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}`, { cache: 'force-cache' }),
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}`, {
+            cache: 'force-cache',
+            headers: { cookie: cookieHeader },
+        }),
         fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/books/${bookId}/chapters/${chapterId}`, {
             cache: 'force-cache',
+            headers: { cookie: cookieHeader },
         }),
     ]);
     if (!bookRes.ok || !chapterRes.ok) {
