@@ -97,7 +97,6 @@ export default function Home() {
                         </p>
                     </div>
                     {/* Books Grid */}
-                    {/* @ts-expect-error Server Component */}
                     <BooksGrid />
                 </SignedIn>
 

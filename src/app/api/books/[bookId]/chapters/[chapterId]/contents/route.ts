@@ -74,7 +74,7 @@ const mockContents: Record<string, Record<string, any[]>> = {
 
 export const revalidate = 3600;
 
-export async function GET(_req: Request, { params }: { params: { bookId: string; chapterId: string } }) {
+export async function GET(_req: Request, context: { params: Promise<{ bookId: string; chapterId: string }> }) {
     const { userId } = await auth();
     if (!userId) {
         return new NextResponse('Unauthorized', { status: 401 });
@@ -82,7 +82,7 @@ export async function GET(_req: Request, { params }: { params: { bookId: string;
     if (!rateLimit(userId)) {
         return new NextResponse('Too Many Requests', { status: 429 });
     }
-    const { bookId, chapterId } = params;
+    const { bookId, chapterId } = await context.params;
     const endpoint = process.env.ILMTEST_API_ENDPOINT;
     if (endpoint) {
         try {

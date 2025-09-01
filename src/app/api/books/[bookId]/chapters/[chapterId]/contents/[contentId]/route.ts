@@ -77,7 +77,7 @@ export const revalidate = 3600;
 
 export async function GET(
     _req: Request,
-    { params }: { params: { bookId: string; chapterId: string; contentId: string } },
+    context: { params: Promise<{ bookId: string; chapterId: string; contentId: string }> },
 ) {
     const { userId } = await auth();
     if (!userId) {
@@ -86,7 +86,7 @@ export async function GET(
     if (!rateLimit(userId)) {
         return new NextResponse('Too Many Requests', { status: 429 });
     }
-    const { bookId, chapterId, contentId } = params;
+    const { bookId, chapterId, contentId } = await context.params;
     const endpoint = process.env.ILMTEST_API_ENDPOINT;
     if (endpoint) {
         try {

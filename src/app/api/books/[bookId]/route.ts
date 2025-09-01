@@ -54,14 +54,14 @@ const mockBooks = {
 
 export const revalidate = 3600;
 
-export async function GET(_req: Request, { params }: { params: { bookId: string } }) {
+export async function GET(_req: Request, context: { params: Promise<{ bookId: string }> }) {
     const { userId } = await auth();
     if (!userId) {
         return new NextResponse('Unauthorized', { status: 401 });
     }
 
     const endpoint = process.env.ILMTEST_API_ENDPOINT;
-    const { bookId } = params;
+    const { bookId } = await context.params;
     if (endpoint) {
         try {
             const res = await fetch(`${endpoint}/books/${bookId}`, {
