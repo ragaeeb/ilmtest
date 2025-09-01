@@ -65,7 +65,8 @@ export async function GET(req: Request) {
     const filtered = mockResults.filter(
         (r) => r.title.toLowerCase().includes(q.toLowerCase()) || r.snippet.toLowerCase().includes(q.toLowerCase()),
     );
-    return NextResponse.json(filtered, {
+    const data = filtered.length ? filtered : mockResults;
+    return NextResponse.json(data, {
         headers: { 'Cache-Control': 's-maxage=3600, stale-while-revalidate=86400' },
     });
 }

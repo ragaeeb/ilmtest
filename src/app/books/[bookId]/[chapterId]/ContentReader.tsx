@@ -1,9 +1,9 @@
 'use client';
 
-import { ArrowLeft, BookOpen, Copy, Heart, Share } from 'lucide-react';
+import { ArrowLeft, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { InteractiveText } from '@/components/InteractiveText';
+import { ContentCard } from '@/components/ContentCard';
 import { Button } from '@/components/ui/button';
 
 interface ContentReaderProps {
@@ -12,6 +12,8 @@ interface ContentReaderProps {
     chapterTitle?: string;
     chapterTitleEn?: string;
     bookTitle?: string;
+    prevChapterId?: string | null;
+    nextChapterId?: string | null;
 }
 
 export default function ContentReader({
@@ -20,6 +22,8 @@ export default function ContentReader({
     chapterTitle = 'الفاتحة',
     chapterTitleEn = 'Al-Fatiha',
     bookTitle = 'القرآن الكريم',
+    prevChapterId = null,
+    nextChapterId = null,
 }: ContentReaderProps) {
     const [showTransliteration, setShowTransliteration] = useState(false);
     const [content, setContent] = useState<any[]>([]);
@@ -32,10 +36,6 @@ export default function ContentReader({
             .then(setContent)
             .catch(() => setContent([]));
     }, [bookId, chapterId]);
-
-    const copyToClipboard = (text: string) => {
-        navigator.clipboard.writeText(text);
-    };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100 dark:from-sky-950 dark:via-blue-950 dark:to-indigo-950">
@@ -74,118 +74,32 @@ export default function ContentReader({
                 {/* Content */}
                 <div className="space-y-6">
                     {content.map((item) => (
-                        <div
+                        <ContentCard
                             key={item.id}
-                            className="rounded-xl border border-sky-200 bg-white/80 p-8 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl dark:border-sky-800 dark:bg-gray-900/80"
-                        >
-                            {/* Reference Number */}
-                            <div className="mb-6 flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-blue-600 font-bold text-sm text-white">
-                                        {isQuran ? `${chapterId}:${item.id}` : `#${item.id}`}
-                                    </div>
-                                    <span className="text-sky-500 text-sm">
-                                        {isQuran ? `Verse ${item.id}` : `Hadith ${item.id}`}
-                                    </span>
-                                </div>
-                                <Link
-                                    href={`/books/${bookId}/${chapterId}/${item.id}`}
-                                    className="text-sky-500 text-sm underline-offset-2 hover:underline"
-                                >
-                                    View
-                                </Link>
-                            </div>
-
-                            {/* Arabic Text */}
-                            <div className="mb-6">
-                                <InteractiveText
-                                    text={item.arabic}
-                                    terms={{
-                                        'عمر بن الخطاب': {
-                                            title: 'Umar ibn al-Khattab',
-                                            description: 'Second caliph of Islam and close companion of the Prophet',
-                                        },
-                                    }}
-                                    className="text-right font-arabic text-2xl text-sky-900 leading-relaxed dark:text-sky-100"
-                                />
-                            </div>
-
-                            {/* Transliteration (Quran only) */}
-                            {isQuran && showTransliteration && (
-                                <div className="mb-4 rounded-lg bg-sky-50 p-4 dark:bg-sky-900/30">
-                                    <InteractiveText
-                                        text={item.transliteration}
-                                        terms={{
-                                            mustaqeem: {
-                                                title: 'Mustaqeem',
-                                                description: 'The straight and upright path',
-                                            },
-                                        }}
-                                        className="text-sky-700 italic dark:text-sky-300"
-                                    />
-                                </div>
-                            )}
-
-                            {/* Translation */}
-                            <div className="mb-4">
-                                <InteractiveText
-                                    text={item.translation}
-                                    terms={{
-                                        'Umar ibn al-Khattab': {
-                                            title: 'Umar ibn al-Khattab',
-                                            description: 'Second caliph of Islam and close companion of the Prophet',
-                                        },
-                                    }}
-                                    className="text-lg text-sky-800 leading-relaxed dark:text-sky-200"
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <Button asChild variant="outline" className="h-7 px-3 text-xs">
-                                    <Link href={`/books/${bookId}/${chapterId}/${item.id}/explanations`}>
-                                        Explanation
-                                    </Link>
-                                </Button>
-                            </div>
-
-                            {/* Hadith specific info */}
-                            {!isQuran && (
-                                <div className="border-sky-200 border-t pt-4 dark:border-sky-700">
-                                    <div className="flex items-center justify-between text-sm">
-                                        <div className="flex items-center gap-4">
-                                            <span className="text-sky-600 dark:text-sky-400">
-                                                <strong>Narrator:</strong> {item.narrator}
-                                            </span>
-                                            <span className="rounded-full bg-green-100 px-2 py-1 text-green-700 text-xs dark:bg-green-900 dark:text-green-300">
-                                                {item.grade}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                            <div className="mt-4 flex gap-2">
-                                <Button
-                                    onClick={() => copyToClipboard(item.arabic)}
-                                    className="rounded-lg p-2 text-sky-500 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:hover:bg-sky-900"
-                                >
-                                    <Copy className="h-4 w-4" />
-                                </Button>
-                                <Button className="rounded-lg p-2 text-sky-500 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:hover:bg-sky-900">
-                                    <Heart className="h-4 w-4" />
-                                </Button>
-                                <Button className="rounded-lg p-2 text-sky-500 transition-colors hover:bg-sky-50 hover:text-sky-700 dark:hover:bg-sky-900">
-                                    <Share className="h-4 w-4" />
-                                </Button>
-                            </div>
-                        </div>
+                            bookId={bookId}
+                            chapterId={chapterId}
+                            item={item}
+                            showTransliteration={isQuran && showTransliteration}
+                        />
                     ))}
                 </div>
 
                 {/* Navigation */}
                 <div className="mt-12 flex items-center justify-between rounded-xl border border-sky-200 bg-white/70 p-6 shadow-lg backdrop-blur-sm dark:border-sky-800 dark:bg-gray-900/70">
-                    <Button className="flex items-center gap-2 rounded-lg bg-sky-500 px-6 py-3 text-white transition-colors hover:bg-sky-600">
-                        <ArrowLeft className="h-5 w-5" />
-                        Previous {isQuran ? 'Surah' : 'Book'}
-                    </Button>
+                    {prevChapterId ? (
+                        <Button
+                            asChild
+                            variant="default"
+                            className="flex items-center gap-2 rounded-lg px-6 py-3 text-white"
+                        >
+                            <Link href={`/books/${bookId}/${prevChapterId}`}>
+                                <ArrowLeft className="h-5 w-5" />
+                                Previous {isQuran ? 'Surah' : 'Chapter'}
+                            </Link>
+                        </Button>
+                    ) : (
+                        <span />
+                    )}
 
                     <div className="flex items-center gap-2 text-sky-600 dark:text-sky-400">
                         <BookOpen className="h-5 w-5" />
@@ -194,23 +108,20 @@ export default function ContentReader({
                         </span>
                     </div>
 
-                    <Button className="flex items-center gap-2 rounded-lg bg-sky-500 px-6 py-3 text-white transition-colors hover:bg-sky-600">
-                        Next {isQuran ? 'Surah' : 'Book'}
-                        <ArrowLeft className="h-5 w-5 rotate-180" />
-                    </Button>
-                </div>
-
-                {/* Footer with Dua */}
-                <div className="mt-12 border-sky-200 border-t pt-8 text-center dark:border-sky-800">
-                    <div className="rounded-xl border border-sky-200 bg-white/70 p-6 shadow-lg backdrop-blur-sm dark:border-sky-800 dark:bg-gray-900/70">
-                        <p className="mb-2 font-arabic text-lg text-sky-800 dark:text-sky-200">
-                            رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ
-                        </p>
-                        <p className="text-sky-600 italic dark:text-sky-400">
-                            "Our Lord, give us good in this world and good in the hereafter, and save us from the
-                            punishment of the Fire."
-                        </p>
-                    </div>
+                    {nextChapterId ? (
+                        <Button
+                            asChild
+                            variant="default"
+                            className="flex items-center gap-2 rounded-lg px-6 py-3 text-white"
+                        >
+                            <Link href={`/books/${bookId}/${nextChapterId}`}>
+                                Next {isQuran ? 'Surah' : 'Chapter'}
+                                <ArrowLeft className="h-5 w-5 rotate-180" />
+                            </Link>
+                        </Button>
+                    ) : (
+                        <span />
+                    )}
                 </div>
             </div>
         </div>

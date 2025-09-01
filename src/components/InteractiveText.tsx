@@ -1,5 +1,6 @@
 'use client';
 
+import { X } from 'lucide-react';
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
@@ -52,7 +53,15 @@ export function InteractiveText({ text, terms, className }: InteractiveTextProps
             {parts}
             {open && (
                 <Dialog open={true} onOpenChange={() => setOpen(null)}>
-                    <DialogContent>
+                    <DialogContent className="relative">
+                        <button
+                            type="button"
+                            aria-label="Close"
+                            onClick={() => setOpen(null)}
+                            className="absolute top-3 right-3 text-sky-500 hover:text-sky-700"
+                        >
+                            <X className="h-4 w-4" />
+                        </button>
                         <DialogHeader>
                             <DialogTitle>{terms[open].title}</DialogTitle>
                         </DialogHeader>

@@ -18,10 +18,19 @@ export function Dialog({
         if (!dialog) return;
         open ? dialog.showModal() : dialog.close();
     }, [open]);
+    useEffect(() => {
+        const dialog = ref.current;
+        if (!dialog) return;
+        const handler = (e: MouseEvent) => {
+            if (e.target === dialog) onOpenChange(false);
+        };
+        dialog.addEventListener('click', handler);
+        return () => dialog.removeEventListener('click', handler);
+    }, [onOpenChange]);
     return (
         <dialog
             ref={ref}
-            className="rounded-lg border border-sky-200 bg-white p-6 shadow-lg dark:border-sky-800 dark:bg-gray-900"
+            className="rounded-lg border border-sky-200 bg-white p-6 shadow-lg backdrop:bg-black/50 dark:border-sky-800 dark:bg-gray-900"
             onClose={() => onOpenChange(false)}
         >
             {children}
