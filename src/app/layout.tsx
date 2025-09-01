@@ -1,10 +1,11 @@
 import { ClerkProvider, SignedIn, UserButton } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+
 import { Toaster } from '@/lib/sonner';
 import pkg from '../../package.json';
 import './globals.css';
-
 
 export const metadata: Metadata = {
     title: 'IlmTest',
@@ -28,8 +29,8 @@ export default function RootLayout({
                             <UserButton />
                         </div>
                     </SignedIn>
-                    {children}
-                    <footer className="mt-8 border-t bg-muted/50 py-4 text-center text-xs text-muted-foreground">
+                    <NuqsAdapter>{children}</NuqsAdapter>
+                    <footer className="mt-8 border-t bg-muted/50 py-4 text-center text-muted-foreground text-xs">
                         <p>
                             © 2025 IlmTest. All rights reserved.{' '}
                             <Link href={versionUrl} className="underline" target="_blank">

@@ -8,7 +8,7 @@ const mockBooks = [
         titleEn: 'The Holy Quran',
         description: 'The final revelation from Allah',
         chapters: 114,
-        avatar: 'https://via.placeholder.com/64',
+        avatar: 'https://dev.shamela.ws/covers/1.jpg',
         url: 'https://shamela.ws/book/21795/{{id}}',
     },
     {
@@ -17,7 +17,7 @@ const mockBooks = [
         titleEn: 'Sahih al-Bukhari',
         description: 'The most authentic collection of hadith',
         chapters: 97,
-        avatar: 'https://via.placeholder.com/64',
+        avatar: 'https://dev.shamela.ws/covers/335.jpg',
         url: 'https://shamela.ws/book/112233/{{id}}',
         author: { name: 'Muhammad b. Ismail', born: 194, died: 256 },
     },
@@ -27,7 +27,7 @@ const mockBooks = [
         titleEn: 'Sahih Muslim',
         description: 'The second most authentic hadith collection',
         chapters: 56,
-        avatar: 'https://via.placeholder.com/64',
+        avatar: 'https://dev.shamela.ws/covers/3.jpg',
         url: 'https://shamela.ws/book/445566/{{id}}',
         author: { name: 'Muslim b. al-Hajjaj', born: 206, died: 261 },
     },
@@ -37,7 +37,7 @@ const mockBooks = [
         titleEn: 'Sunan Abi Dawud',
         description: 'Collection focusing on legal hadith',
         chapters: 43,
-        avatar: 'https://via.placeholder.com/64',
+        avatar: 'https://dev.shamela.ws/covers/1727.jpg',
         url: 'https://shamela.ws/book/778899/{{id}}',
     },
     {
@@ -46,7 +46,7 @@ const mockBooks = [
         titleEn: 'Jami at-Tirmidhi',
         description: 'Comprehensive hadith collection with commentary',
         chapters: 46,
-        avatar: 'https://via.placeholder.com/64',
+        avatar: 'https://dev.shamela.ws/covers/1681.jpg',
         url: 'https://shamela.ws/book/998877/{{id}}',
     },
     {
@@ -55,7 +55,7 @@ const mockBooks = [
         titleEn: 'Sunan an-Nasai',
         description: 'Focused collection of authentic hadith',
         chapters: 51,
-        avatar: 'https://via.placeholder.com/64',
+        avatar: 'https://dev.shamela.ws/covers/336.jpg',
         url: 'https://shamela.ws/book/665544/{{id}}',
     },
 ];
