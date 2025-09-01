@@ -24,7 +24,14 @@
                 "noExplicitAny": "off"
             },
             "nursery": {
-                "useSortedClasses": "error"
+                "useSortedClasses": {
+                    "level": "error",
+                    "fix": "safe",
+                    "options": {
+                        "attributes": ["className"],
+                        "functions": ["cn", "cva", "tw", "clsx"]
+                    }
+                }
             },
             "complexity": {
                 "noExcessiveCognitiveComplexity": "warn",
