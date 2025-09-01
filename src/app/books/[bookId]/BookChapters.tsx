@@ -40,11 +40,14 @@ export default function BookChapters({
                 <div className="mb-8 rounded-2xl border border-sky-200 bg-white/80 p-6 shadow-lg backdrop-blur-sm dark:border-sky-800 dark:bg-gray-900/80">
                     <div className="mb-4 flex items-center gap-4">
                         <Button
+                            asChild
                             variant="outline"
                             className="flex items-center gap-2 text-sky-600 transition-colors hover:text-sky-800 dark:text-sky-400 dark:hover:text-sky-200"
                         >
-                            <ArrowLeft className="h-5 w-5" />
-                            <span>Back to Library</span>
+                            <Link href="/">
+                                <ArrowLeft className="h-5 w-5" />
+                                <span>Back to Library</span>
+                            </Link>
                         </Button>
                     </div>
 
