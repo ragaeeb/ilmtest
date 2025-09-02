@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/ragaeeb/ilmtest/compare/v1.4.0...v1.5.0) (2025-09-02)
+
+
+### Features
+
+* **agent:** Fix build ([02a3546](https://github.com/ragaeeb/ilmtest/commit/02a35465cd80552f6847e732aabafaff6533c65f))
+
 # [1.4.0](https://github.com/ragaeeb/ilmtest/compare/v1.3.0...v1.4.0) (2025-09-02)
 
 
