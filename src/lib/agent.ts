@@ -177,7 +177,7 @@ export const bukhariListHadiths = tool<typeof hadithQuerySchema>(
 /* ---------- LLM + Agent ---------- */
 const llm = new ChatGoogleGenerativeAI({
     model: 'gemini-2.5-pro',
-    apiKey: process.env.GOOGLE_API_KEY || '',
+    apiKey: process.env.GOOGLE_API_KEY || Date.now().toString(),
     temperature: 0.2,
 });
 
