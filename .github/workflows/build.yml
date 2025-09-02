@@ -55,9 +55,6 @@ jobs:
               uses: cycjimmy/semantic-release-action@v4
               with:
                   semantic_version: 24
-                  extra_plugins: |
-                      @semantic-release/changelog@6.0.3
-                      @semantic-release/git@10.0.1
               env:
                   # Use PAT_TOKEN if available, otherwise fall back to GITHUB_TOKEN
                   GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}

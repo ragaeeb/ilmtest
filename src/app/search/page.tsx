@@ -2,8 +2,8 @@
 
 import { Search } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { useQueryState } from 'nuqs';
+import { useEffect, useState } from 'react';
 
 export default function SearchPage() {
     const [query, setQuery] = useQueryState('q', { defaultValue: '' });
@@ -16,9 +16,21 @@ export default function SearchPage() {
                 setResults([]);
                 return;
             }
-            const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+
+            const res =
+                process.env.LANGSMITH_API_KEY && process.env.GOOGLE_API_KEY
+                    ? await fetch('/api/search/agent', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                              query,
+                          }),
+                      })
+                    : await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+
             if (res.ok) {
-                setResults(await res.json());
+                const data = await res.json();
+                setResults(data);
             }
         };
         fetchResults();

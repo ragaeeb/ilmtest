@@ -2,9 +2,8 @@ import { ClerkProvider, SignedIn, UserButton } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
-
+import pkg from '@/../package.json';
 import { Toaster } from '@/lib/sonner';
-import pkg from '../../package.json';
 import './globals.css';
 
 export const metadata: Metadata = {
